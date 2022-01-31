@@ -2,9 +2,12 @@ package com.card;
 
 import com.card.controller.CreditCardController;
 import com.card.dto.CreditCardDTO;
+import com.card.dto.ResponseDTO;
 import com.card.exception.CardNotValidException;
 import com.card.io.CreditCardIO;
 import com.card.service.CreditCardService;
+import com.jwt.service.CustomeUserDetailService;
+import com.jwt.util.JwtUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,12 +37,18 @@ public class CreditCardControllerTest {
     @MockBean
     private CreditCardService creditCardService;
 
+    @MockBean
+    CustomeUserDetailService customeUserDetailService;
+
+    @MockBean
+    JwtUtil jwtUtil;
+
     @Test
     public void testAddCard() throws Exception {
         String inputJson = "{\"number\":\"1358954993914435\",\"name\":\"Abhijeet\",\"limit\":150000}";
-        String outputJson = "{\"number\":\"1358954993914435\",\"name\":\"Abhijeet\",\"limit\":150000,\"balance\":0}";
-        CreditCardDTO mockCard= new CreditCardDTO("1358954993914435","Abhijeet",150000L,0L);
-        Mockito.when(creditCardService.addCard(Mockito.any(CreditCardIO.class))).thenReturn(mockCard);
+        String outputJson = "{\"responseCode\":\"OK\",\"responseMessage\":\"Success\"}";
+        ResponseDTO mockResponse = new ResponseDTO("OK","Success");
+        Mockito.when(creditCardService.addCard(Mockito.any(CreditCardIO.class))).thenReturn(mockResponse);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/card")

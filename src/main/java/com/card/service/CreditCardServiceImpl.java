@@ -3,6 +3,7 @@ package com.card.service;
 import com.card.constants.ServiceConstants;
 import com.card.dao.CreditCardDao;
 import com.card.dto.CreditCardDTO;
+import com.card.dto.ResponseDTO;
 import com.card.exception.CardNotValidException;
 import com.card.exception.DataNotFoundException;
 import com.card.exception.DuplicateRecordException;
@@ -30,13 +31,16 @@ public class CreditCardServiceImpl implements CreditCardService {
     CreditCardUtil creditCardUtil;
 
     @Override
-    public CreditCardDTO addCard(CreditCardIO creditCardIO) {
+    public ResponseDTO addCard(CreditCardIO creditCardIO) {
         if (checkInputs(creditCardIO)){
             String cardNumber = creditCardIO.getNumber();
             if (checkValidCardNumber(cardNumber)){
                 try {
                     CreditCard card = cardDao.addCard(creditCardUtil.credtcardRequestMapping(creditCardIO));
-                    return creditCardUtil.credtcardResponseMapping(card);
+                    if (card != null){
+                        return new ResponseDTO(ServiceConstants.OK,ServiceConstants.SUCCESS);
+                    }
+
                 }catch (Exception e){
                     throw new DuplicateRecordException(cardNumber);
                 }
@@ -46,7 +50,9 @@ public class CreditCardServiceImpl implements CreditCardService {
         }else {
             throw new InValidInputException();
         }
+        return null;
     }
+
 
     private boolean checkInputs(CreditCardIO creditCardIO){
         return !StringUtils.isEmpty(creditCardIO.getNumber())

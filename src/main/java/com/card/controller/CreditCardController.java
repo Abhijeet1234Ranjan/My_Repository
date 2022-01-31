@@ -1,6 +1,7 @@
 package com.card.controller;
 
 import com.card.dto.CreditCardDTO;
+import com.card.dto.ResponseDTO;
 import com.card.io.CreditCardIO;
 import com.card.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class CreditCardController {
     private CreditCardService service;
 
     @PostMapping("/card")
-    public CreditCardDTO addCard(@RequestBody CreditCardIO creditCardIO){
+    public ResponseDTO addCard(@RequestBody CreditCardIO creditCardIO){
 
         return service.addCard(creditCardIO);
     }

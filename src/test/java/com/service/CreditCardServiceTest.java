@@ -7,6 +7,8 @@ import com.card.io.CreditCardIO;
 import com.card.model.CreditCard;
 import com.card.service.CreditCardServiceImpl;
 import com.card.util.CreditCardUtil;
+import com.jwt.service.CustomeUserDetailService;
+import com.jwt.util.JwtUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,12 @@ public class CreditCardServiceTest {
 
     @MockBean
     private CreditCardUtil cardUtil;
+
+    @MockBean
+    CustomeUserDetailService customeUserDetailService;
+
+    @MockBean
+    JwtUtil jwtUtil;
 
     @Autowired
     private CreditCardServiceImpl service;
