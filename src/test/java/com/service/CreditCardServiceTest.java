@@ -1,7 +1,6 @@
 package com.service;
 
 import com.card.dao.CreditCardDaoImpl;
-import com.card.dto.CreditCardDTO;
 import com.card.exception.CardNotValidException;
 import com.card.exception.DataNotFoundException;
 import com.card.io.CreditCardIO;

@@ -1,12 +1,9 @@
 package com.card;
 
 import com.card.controller.CreditCardController;
-import com.card.dao.CreditCardDao;
 import com.card.dto.CreditCardDTO;
 import com.card.exception.CardNotValidException;
-import com.card.exception.DataNotFoundException;
 import com.card.io.CreditCardIO;
-import com.card.model.CreditCard;
 import com.card.service.CreditCardService;
 import org.junit.Assert;
 import org.junit.Test;

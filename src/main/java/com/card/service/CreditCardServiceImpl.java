@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -31,7 +30,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     CreditCardUtil creditCardUtil;
 
     @Override
-    public CreditCardDTO addCard(CreditCardIO creditCardIO){
+    public CreditCardDTO addCard(CreditCardIO creditCardIO) {
         if (checkInputs(creditCardIO)){
             String cardNumber = creditCardIO.getNumber();
             if (checkValidCardNumber(cardNumber)){
@@ -50,20 +49,20 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     private boolean checkInputs(CreditCardIO creditCardIO){
-        return (!StringUtils.isEmpty(creditCardIO.getNumber())
+        return !StringUtils.isEmpty(creditCardIO.getNumber())
                 && !StringUtils.isEmpty(creditCardIO.getName())
-                && creditCardIO.getLimit() != 0L) ? true : false;
+                && creditCardIO.getLimit() != 0L;
     }
 
     private boolean checkValidCardNumber(String cardNumber){
         return cardNumber.length() <= ServiceConstants.NINETEEN
                 && checkDigit(cardNumber)
-                && isNumberValid(cardNumber) ? true:false;
+                && isNumberValid(cardNumber);
     }
 
     private static boolean isNumberValid(String cardNumber) {
         String[] splitNum = cardNumber.split("");
-        int []numArr = Arrays.stream(splitNum).mapToInt(e -> Integer.parseInt(e)).toArray();
+        int []numArr = Arrays.stream(splitNum).mapToInt(Integer::parseInt).toArray();
         for(int i=numArr.length-2;i>=0;i=i-2) {
             int num = numArr[i]*2;
             if(num>9){
@@ -71,10 +70,7 @@ public class CreditCardServiceImpl implements CreditCardService {
             }
             numArr[i]=num;
         }
-        if(sumDigits(numArr)%10==0){
-            return true;
-        }
-        return false;
+        return sumDigits(numArr) % 10 == 0;
     }
 
     private static int sumDigits(int[] arr) {
