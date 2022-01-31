@@ -16,7 +16,7 @@ public class CreditCardController {
     private CreditCardService service;
 
     @PostMapping("/card")
-    public CreditCardDTO addCard(@RequestBody CreditCardIO creditCardIO) throws SQLException {
+    public CreditCardDTO addCard(@RequestBody CreditCardIO creditCardIO){
 
         return service.addCard(creditCardIO);
     }

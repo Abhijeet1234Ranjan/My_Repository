@@ -7,6 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CreditCardService {
-    public CreditCardDTO addCard(CreditCardIO creditCardIO) throws SQLException;
+    public CreditCardDTO addCard(CreditCardIO creditCardIO);
     public List<CreditCardDTO> getAllCards();
 }
